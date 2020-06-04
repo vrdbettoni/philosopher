@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:54 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/04 18:54:56 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/04 20:08:33 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		*monitor(void *content)
 	i = -1;
 	philo = content;
 	count = philo->a->nb_philo;
-	philo->time = show_time() - 2;
+	philo->time = show_time() - 1;
 	usleep(2000);
 	while (1)
 	{

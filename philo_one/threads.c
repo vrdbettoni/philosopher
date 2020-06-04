@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:53:39 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/04 18:55:38 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/04 20:17:23 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		*philosopher(void *content)
 	philo->left_fork = philo->id;
 	philo->right_fork = philo->id + 1 > philo->a->nb_philo ?
 		1 : philo->id + 1;
-	philo->a->time_eat[philo->id - 1] = show_time() + philo->a->time_to_die;
+	philo->a->time_eat[philo->id - 1] = show_time();
 	philo->a->is_eating[philo->id - 1] = 0;
 	while (philo->a->someone_died == 0)
 	{

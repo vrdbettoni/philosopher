@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:44:51 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/04 18:54:32 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/04 20:06:41 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void		eat(t_philo *philo)
 		return ;
 	philo->a->is_eating[philo->id - 1] = 1;
 	ft_write(philo, show_time() - philo->time, 2, philo->id);
-	philo->count_eat++;
 	philo->a->time_eat[philo->id - 1] = show_time();
 	usleep(philo->a->time_to_eat * 1000);
+	philo->count_eat++;
 	philo->a->is_eating[philo->id - 1] = 0;
 }
 
