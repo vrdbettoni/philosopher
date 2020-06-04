@@ -1,14 +1,13 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   threads.c                                        .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vroth-di <vroth-di@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/02/05 04:50:31 by vroth-di     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/05 18:31:41 by vroth-di    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   threads.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/04 18:53:39 by vroth-di          #+#    #+#             */
+/*   Updated: 2020/06/04 18:55:38 by vroth-di         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
@@ -73,7 +72,7 @@ void		*monitor(void *content)
 	{
 		while (++i < philo->a->nb_philo)
 		{
-			if (!philo->a->is_eating[i] 
+			if (!philo->a->is_eating[i]
 				&& show_time() >= philo->a->time_eat[i] + philo->a->time_to_die)
 				return (die(philo, i + 1));
 			philo->a->is_eating[i] ? count++ : 0;
