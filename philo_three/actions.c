@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:53:52 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/05 19:43:10 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/05 20:07:04 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		take_forks(t_philo *philo)
 	ft_write(philo, 1, philo->id);
 	while (sem_wait(philo->a->eat) == EAGAIN)
 		am_i_dead(philo);
-	ft_write(philo,1, philo->id);
+	ft_write(philo, 1, philo->id);
 }
 
 void		unlock_forks(t_philo *philo)
