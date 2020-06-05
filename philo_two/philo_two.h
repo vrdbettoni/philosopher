@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:44 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/04 18:54:47 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/05 19:31:09 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct			s_all
 	int					*is_eating;
 	sem_t				*eat;
 	sem_t				*write;
+	long long			time;
 	long long			*time_eat;
 }						t_all;
 
@@ -46,7 +47,6 @@ typedef struct			s_philo
 	int					count_eat;
 	int					left_fork;
 	int					right_fork;
-	long long			time;
 }						t_philo;
 
 int						time_to_sleep(t_philo *philo, int time);
@@ -62,8 +62,7 @@ void					ft_exit(t_all *all, t_philo *p);
 void					*philosopher(void *content);
 void					*monitor(void *content);
 void					ft_putnbr_base(unsigned long long nb, char *base);
-int						ft_write(t_philo *philo,
-						long long ms, int action, int id);
+int						ft_write(t_philo *philo, int action, int id);
 long long				show_time(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:17 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/04 18:54:19 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/05 19:45:03 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		ft_exit(t_all *all, t_philo *p)
 
 void		*die(t_philo *philo, int id)
 {
-	ft_write(philo, show_time() - philo->time, 5, id);
+	ft_write(philo, 5, id);
 	return (NULL);
 }
 
@@ -31,7 +31,6 @@ void		*philosopher(void *content)
 	t_philo	*philo;
 
 	philo = content;
-	philo->time = show_time();
 	philo->count_eat = 0;
 	philo->is_eating = 0;
 	philo->last_eat = show_time();
@@ -46,7 +45,7 @@ void		*philosopher(void *content)
 			return (NULL);
 		}
 		go_sleep(philo, philo->a->time_to_sleep);
-		ft_write(philo, show_time() - philo->time, 4, philo->id);
+		ft_write(philo, 4, philo->id);
 	}
 	return (NULL);
 }

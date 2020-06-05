@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:00 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/04 18:54:02 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/05 19:42:06 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		init_thread(t_all a)
 	if (!(p = (t_philo*)malloc(sizeof(t_philo) * (a.nb_philo + 1))))
 		return (1);
 	i = -1;
+	(&a)->time = show_time();
 	while (++i < a.nb_philo + 1)
 	{
 		pid[i] = fork();

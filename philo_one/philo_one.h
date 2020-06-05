@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:53:26 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/04 18:53:28 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/05 19:26:02 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct			s_all
 	int					must_eat;
 	int					someone_died;
 	int					*is_eating;
+	long long			time;
 	long long			*time_eat;
 	pthread_mutex_t		*eat;
 	pthread_mutex_t		write;
@@ -44,14 +45,12 @@ typedef struct			s_philo
 	int					count_eat;
 	int					left_fork;
 	int					right_fork;
-	long long			time;
 }						t_philo;
 
 int						go_sleep(t_philo *philo);
 int						time_to_sleep(t_philo *philo, int time);
 int						ft_strlen(char *string);
-int						ft_write(t_philo *philo,
-						long long ms, int action, int id);
+int						ft_write(t_philo *philo, int action, int id);
 int						ft_atoi(const char *str);
 void					take_forks(t_philo *philo);
 void					unlock_forks(t_philo *philo);

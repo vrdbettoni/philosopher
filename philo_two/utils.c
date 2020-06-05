@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:55:12 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/04 18:55:13 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/05 19:29:44 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,14 @@ void		ft_putnbr_base(unsigned long long nb, char *base)
 	write(1, &base[nb % taille_base], 1);
 }
 
-int			ft_write(t_philo *philo, long long ms, int action, int id)
+int			ft_write(t_philo *philo, int action, int id)
 {
+	long long	ms;
+	
 	if (philo->a->someone_died == 1)
 		return (0);
 	action == 5 ? philo->a->someone_died = 1 : 0;
+	ms = show_time() - philo->a->time;
 	sem_wait(philo->a->write);
 	ft_putnbr_base((unsigned long long)ms, "0123456789");
 	write(1, " ", 1);

@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:53:52 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/04 18:53:53 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/05 19:43:10 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			am_i_dead(t_philo *philo)
 {
 	if ((show_time() > (long long)(philo->a->time_to_die + philo->last_eat)))
 	{
-		ft_write(philo, show_time() - philo->time, 5, philo->id);
+		ft_write(philo, 5, philo->id);
 		kill(0, SIGINT);
 		return (1);
 	}
@@ -25,7 +25,7 @@ int			am_i_dead(t_philo *philo)
 
 int			go_sleep(t_philo *philo, int time)
 {
-	ft_write(philo, show_time() - philo->time, 3, philo->id);
+	ft_write(philo, 3, philo->id);
 	while (time > 0)
 	{
 		if (am_i_dead(philo))
@@ -40,10 +40,10 @@ void		take_forks(t_philo *philo)
 {
 	while (sem_trywait(philo->a->eat))
 		am_i_dead(philo);
-	ft_write(philo, show_time() - philo->time, 1, philo->id);
+	ft_write(philo, 1, philo->id);
 	while (sem_wait(philo->a->eat) == EAGAIN)
 		am_i_dead(philo);
-	ft_write(philo, show_time() - philo->time, 1, philo->id);
+	ft_write(philo,1, philo->id);
 }
 
 void		unlock_forks(t_philo *philo)
@@ -55,7 +55,7 @@ void		unlock_forks(t_philo *philo)
 void		eat(t_philo *philo)
 {
 	philo->is_eating = 1;
-	ft_write(philo, show_time() - philo->time, 2, philo->id);
+	ft_write(philo, 2, philo->id);
 	philo->count_eat++;
 	philo->last_eat = show_time();
 	usleep(philo->a->time_to_eat * 1000);
