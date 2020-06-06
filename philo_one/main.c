@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 17:46:05 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/06 14:14:59 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/06 20:00:50 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		init_fork_table(t_all *a)
 		pthread_mutex_init(&(a->eat[i]), NULL);
 		pthread_mutex_init(&(a->who_is_eating[i]), NULL);
 	}
+	pthread_mutex_init(&(a->one_die), NULL);
 	pthread_mutex_init(&(a->write), NULL);
 	return (0);
 }
@@ -48,6 +49,7 @@ int		init_thread(t_all a)
 	{
 		p[i].a = &a;
 		p[i].id = i + 1;
+		p[i].stop = 0; 
 		pthread_create(&(p[i].th), NULL, philosopher, &(p[i]));
 		usleep(50);
 	}
