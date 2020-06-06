@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:53:39 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/06 14:23:43 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/06 16:56:52 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,9 @@ void		*monitor(void *content)
 			if (!philo->a->is_eating[i]
 				&& show_time() >= philo->a->time_eat[i] + philo->a->time_to_die)
 				return (die(philo, i + 1));
-			pthread_mutex_unlock(&(philo->a->who_is_eating[i]));
 			philo->a->is_eating[i] ? count++ : 0;
+			pthread_mutex_unlock(&(philo->a->who_is_eating[i]));
+
 		}
 		if (count == philo->a->nb_philo)
 			return (NULL);

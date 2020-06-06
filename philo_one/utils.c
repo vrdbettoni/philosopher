@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:53:45 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/05 20:07:52 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/06 16:55:30 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,14 @@ int			ft_write(t_philo *philo, int action, int id)
 {
 	long long	ms;
 
+	pthread_mutex_lock(&(philo->a->write));
 	if (philo->a->someone_died == 1)
+	{
+		pthread_mutex_unlock(&(philo->a->write));
 		return (0);
+	}
 	action == 5 ? philo->a->someone_died = 1 : 0;
 	ms = show_time() - philo->a->time;
-	pthread_mutex_lock(&(philo->a->write));
 	ft_putnbr_base((unsigned long long)ms, "0123456789");
 	write(1, " ", 1);
 	ft_putnbr_base((unsigned long long)id, "0123456789");
