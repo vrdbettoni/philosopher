@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 17:46:05 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/04 18:53:20 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/06 14:14:59 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int		init_fork_table(t_all *a)
 	int	i;
 
 	i = -1;
-	if (!(a->eat = malloc(a->nb_philo * sizeof(pthread_mutex_t))))
+	if (!(a->eat = malloc(a->nb_philo * sizeof(pthread_mutex_t)))
+			|| !(a->who_is_eating = malloc(a->nb_philo * sizeof(pthread_mutex_t))))
 		return (1);
 	if (!(a->is_eating = malloc(sizeof(long long) * a->nb_philo))
 			|| !(a->time_eat = malloc(sizeof(long long) * a->nb_philo)))
@@ -27,7 +28,10 @@ int		init_fork_table(t_all *a)
 		a->is_eating[i] = 0;
 	i = -1;
 	while (++i < a->nb_philo)
+	{
 		pthread_mutex_init(&(a->eat[i]), NULL);
+		pthread_mutex_init(&(a->who_is_eating[i]), NULL);
+	}
 	pthread_mutex_init(&(a->write), NULL);
 	return (0);
 }
@@ -45,7 +49,7 @@ int		init_thread(t_all a)
 		p[i].a = &a;
 		p[i].id = i + 1;
 		pthread_create(&(p[i].th), NULL, philosopher, &(p[i]));
-		usleep(30);
+		usleep(50);
 	}
 	p[i].a = &a;
 	p[i].id = i + 1;

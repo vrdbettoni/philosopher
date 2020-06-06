@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:53:39 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/05 19:26:35 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/06 14:23:43 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ void		ft_exit(t_all *all, t_philo *p)
 {
 	pthread_mutex_destroy(all->eat);
 	pthread_mutex_destroy(&(all->write));
+	pthread_mutex_destroy((all->who_is_eating));
 	free(all->eat);
 	free(all->is_eating);
+	free(all->who_is_eating);
 	free(all->time_eat);
 	free(p);
 }
@@ -33,14 +35,14 @@ void		*philosopher(void *content)
 	t_philo		*philo;
 
 	philo = content;
-	philo->a->is_eating[philo->id - 1] = 1;
+	pthread_mutex_lock(&(philo->a->who_is_eating[philo->id - 1]));;
 	philo->id == 1 ? philo->a->time = show_time() : 0;
 	philo->count_eat = 0;
 	philo->left_fork = philo->id;
 	philo->right_fork = philo->id + 1 > philo->a->nb_philo ?
 		1 : philo->id + 1;
 	philo->a->time_eat[philo->id - 1] = show_time();
-	philo->a->is_eating[philo->id - 1] = 0;
+	pthread_mutex_unlock(&(philo->a->who_is_eating[philo->id - 1]));
 	while (philo->a->someone_died == 0)
 	{
 		take_forks(philo);
@@ -71,9 +73,11 @@ void		*monitor(void *content)
 	{
 		while (++i < philo->a->nb_philo)
 		{
+			pthread_mutex_lock(&(philo->a->who_is_eating[i]));
 			if (!philo->a->is_eating[i]
 				&& show_time() >= philo->a->time_eat[i] + philo->a->time_to_die)
 				return (die(philo, i + 1));
+			pthread_mutex_unlock(&(philo->a->who_is_eating[i]));
 			philo->a->is_eating[i] ? count++ : 0;
 		}
 		if (count == philo->a->nb_philo)
