@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:44 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/05 19:31:09 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/06 14:37:55 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct			s_all
 	int					*is_eating;
 	sem_t				*eat;
 	sem_t				*write;
+	sem_t				*who_is_eating;
 	long long			time;
 	long long			*time_eat;
 }						t_all;

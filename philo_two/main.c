@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:36 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/06 13:49:05 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/06 14:45:42 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int		init_fork_table(t_all *a)
 	i = -1;
 	while (++i < a->nb_philo)
 		a->is_eating[i] = 0;
-	i = -1;
+	sem_unlink("is_eating");
+	a->who_is_eating = sem_open("is_eating", O_CREAT | O_EXCL, 0644, 1);
 	sem_unlink("sfork");
 	a->eat = sem_open("sfork", O_CREAT | O_EXCL, 0644, a->nb_philo);
 	sem_unlink("swrite");

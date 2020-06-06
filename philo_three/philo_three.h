@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:07 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/05 19:42:23 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/06 16:12:43 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct			s_all
 typedef struct			s_philo
 {
 	t_all				*a;
+	int					bwforks;
 	pthread_t			th;
 	pid_t				pid;
 	int					id;

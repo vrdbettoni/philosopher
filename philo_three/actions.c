@@ -6,43 +6,59 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:53:52 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/05 20:07:04 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/06 16:12:06 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
-
-int			am_i_dead(t_philo *philo)
-{
-	if ((show_time() > (long long)(philo->a->time_to_die + philo->last_eat)))
-	{
-		ft_write(philo, 5, philo->id);
-		kill(0, SIGINT);
-		return (1);
-	}
-	return (0);
-}
 
 int			go_sleep(t_philo *philo, int time)
 {
 	ft_write(philo, 3, philo->id);
 	while (time > 0)
 	{
-		if (am_i_dead(philo))
+		if ((show_time() > (long long)(philo->a->time_to_die + philo->last_eat)))
+		{
+			ft_write(philo, 5, philo->id);
+			kill(0, SIGINT);
 			return (0);
+		}
 		usleep(5000);
 		time -= 5;
 	}
 	return (1);
 }
 
+void		*wait_forks(void *content)
+{
+	t_philo		*philo;
+	long long	time_left;
+
+	philo = content;
+	time_left = philo->a->time_to_die + philo->last_eat;
+	while (1)
+	{
+		if (philo->bwforks == 0)
+			return (NULL);
+		if (show_time() > time_left)
+		{
+			ft_write(philo, 5, philo->id);
+			kill(0, SIGINT);
+			return (NULL);
+		}
+	}
+	return(NULL);
+}
+
 void		take_forks(t_philo *philo)
 {
-	while (sem_trywait(philo->a->eat))
-		am_i_dead(philo);
+	philo->bwforks = 1;
+	pthread_create(&(philo)->th, NULL, wait_forks, (void*)philo);
+	pthread_detach(philo->th);
+	sem_wait(philo->a->eat);
 	ft_write(philo, 1, philo->id);
-	while (sem_wait(philo->a->eat) == EAGAIN)
-		am_i_dead(philo);
+	sem_wait(philo->a->eat);
+	philo->bwforks = 0;
 	ft_write(philo, 1, philo->id);
 }
 

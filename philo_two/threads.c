@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:54 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/05 19:33:04 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/06 14:53:41 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void		ft_exit(t_all *all, t_philo *p)
 {
 	sem_close(all->eat);
 	sem_close(all->write);
+	sem_close(all->who_is_eating);
 	free(all->is_eating);
 	free(all->time_eat);
 	free(p);
@@ -23,6 +24,7 @@ void		ft_exit(t_all *all, t_philo *p)
 
 void		*die(t_philo *philo, int id)
 {
+	sem_post(philo->a->who_is_eating);
 	ft_write(philo, 5, id);
 	return (NULL);
 }
@@ -67,9 +69,11 @@ void		*monitor(void *content)
 	{
 		while (++i < philo->a->nb_philo)
 		{
+			sem_wait(philo->a->who_is_eating);
 			if (!philo->a->is_eating[i]
 				&& show_time() >= philo->a->time_eat[i] + philo->a->time_to_die)
 				return (die(philo, i + 1));
+			sem_post(philo->a->who_is_eating);
 			philo->a->is_eating[i] ? count++ : 0;
 		}
 		if (count == philo->a->nb_philo)
