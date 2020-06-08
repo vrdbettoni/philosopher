@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:53:39 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/06 20:10:33 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/08 18:26:03 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		*philosopher(void *content)
 	t_philo		*philo;
 
 	philo = content;
-	pthread_mutex_lock(&(philo->a->who_is_eating[philo->id - 1]));;
+	pthread_mutex_lock(&(philo->a->who_is_eating[philo->id - 1]));
 	philo->id == 1 ? philo->a->time = show_time() : 0;
 	philo->count_eat = 0;
 	philo->left_fork = philo->id;
@@ -81,7 +81,6 @@ void		*monitor(void *content)
 				return (die(philo, i + 1));
 			philo->a->is_eating[i] ? count++ : 0;
 			pthread_mutex_unlock(&(philo->a->who_is_eating[i]));
-
 		}
 		if (count == philo->a->nb_philo)
 			return (NULL);
