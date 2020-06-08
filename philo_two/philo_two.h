@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:44 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/06 14:37:55 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/08 17:09:52 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct			s_all
 	int					must_eat;
 	int					someone_died;
 	int					*is_eating;
+	sem_t				*sdie;
 	sem_t				*eat;
 	sem_t				*write;
 	sem_t				*who_is_eating;
@@ -44,6 +45,7 @@ typedef struct			s_philo
 {
 	t_all				*a;
 	pthread_t			th;
+	int					stop;
 	int					id;
 	int					count_eat;
 	int					left_fork;

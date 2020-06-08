@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:55:12 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/05 20:08:25 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/08 17:48:12 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,16 @@ int			ft_write(t_philo *philo, int action, int id)
 {
 	long long	ms;
 
+	sem_wait(philo->a->sdie);
 	if (philo->a->someone_died == 1)
+	{
+		sem_post(philo->a->sdie);
 		return (0);
+	}
 	action == 5 ? philo->a->someone_died = 1 : 0;
-	ms = show_time() - philo->a->time;
+	sem_post(philo->a->sdie);
 	sem_wait(philo->a->write);
+	ms = show_time() - philo->a->time;
 	ft_putnbr_base((unsigned long long)ms, "0123456789");
 	write(1, " ", 1);
 	ft_putnbr_base((unsigned long long)id, "0123456789");
