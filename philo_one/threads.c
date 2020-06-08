@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:53:39 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/08 18:26:03 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/08 19:11:26 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,8 @@ void		*philosopher(void *content)
 	philo = content;
 	pthread_mutex_lock(&(philo->a->who_is_eating[philo->id - 1]));
 	philo->id == 1 ? philo->a->time = show_time() : 0;
-	philo->count_eat = 0;
-	philo->left_fork = philo->id;
-	philo->right_fork = philo->id + 1 > philo->a->nb_philo ?
-		1 : philo->id + 1;
+	philo->left_fork = philo->id - 1;
+	philo->right_fork = philo->id == philo->a->nb_philo ? 0 : philo->id;
 	philo->a->time_eat[philo->id - 1] = show_time();
 	pthread_mutex_unlock(&(philo->a->who_is_eating[philo->id - 1]));
 	while (philo->stop == 0)
@@ -52,7 +50,9 @@ void		*philosopher(void *content)
 		unlock_forks(philo);
 		if (philo->a->must_eat != -1 && philo->count_eat >= philo->a->must_eat)
 		{
+			pthread_mutex_lock(&(philo->a->who_is_eating[philo->id - 1]));
 			philo->a->is_eating[philo->id - 1] = 1;
+			pthread_mutex_unlock(&(philo->a->who_is_eating[philo->id - 1]));
 			return (NULL);
 		}
 		go_sleep(philo);

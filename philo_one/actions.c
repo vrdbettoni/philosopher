@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:53:00 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/08 18:27:41 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/08 19:01:37 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ void		take_forks(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_unlock(&(philo->a->one_die));
-	pthread_mutex_lock(&(philo->a->eat[philo->right_fork - 1]));
+	pthread_mutex_lock(&(philo->a->eat[philo->left_fork]));
 	ft_write(philo, 1, philo->id);
-	pthread_mutex_lock(&(philo->a->eat[philo->left_fork - 1]));
+	pthread_mutex_lock(&(philo->a->eat[philo->right_fork]));
 	ft_write(philo, 1, philo->id);
 }
 
 void		unlock_forks(t_philo *philo)
 {
-	pthread_mutex_unlock(&(philo->a->eat[philo->right_fork - 1]));
-	pthread_mutex_unlock(&(philo->a->eat[philo->left_fork - 1]));
+	pthread_mutex_unlock(&(philo->a->eat[philo->left_fork]));
+	pthread_mutex_unlock(&(philo->a->eat[philo->right_fork]));
 }
 
 void		eat(t_philo *philo)

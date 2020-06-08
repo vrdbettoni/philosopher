@@ -6,7 +6,7 @@
 #    By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/05 17:14:33 by vroth-di          #+#    #+#              #
-#    Updated: 2020/06/06 16:52:13 by vroth-di         ###   ########.fr        #
+#    Updated: 2020/06/08 20:56:51 by vroth-di         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,17 @@ OBJS_PATH2	=	philo_two
 OBJS_PATH3	=	philo_three
 
 OBJ			=	$(SRCS:.c=.o)
+OBJI		=	$(SRCS3:.c=.o)
 OBJ1		=	$(addprefix $(OBJS_PATH1)/, $(SRCS:.c=.o))
 OBJ2		=	$(addprefix $(OBJS_PATH2)/, $(SRCS:.c=.o))
-OBJ3		=	$(addprefix $(OBJS_PATH3)/, $(SRCS:.c=.o))
+OBJ3		=	$(addprefix $(OBJS_PATH3)/, $(SRCS3:.c=.o))
 
 SRCS		=	main.c				actions.c\
 				threads.c				utils.c
+
+SRCS3		=	main.c				actions.c\
+				threads.c				utils.c\
+				itoa.c
 
 all:		$(NAME)
 
@@ -37,13 +42,13 @@ all:		$(NAME)
 $(NAME): 	$(OBJ1) $(OBJ2) $(OBJ3)
 			@cd philo_one && $(CC) $(CFLAGS) -o philo_one -pthread $(OBJ)
 			@cd philo_two && $(CC) $(CFLAGS) -o philo_two -pthread $(OBJ)
-			@cd philo_three && $(CC) $(CFLAGS) -o philo_three -pthread  $(OBJ)
+			@cd philo_three && $(CC) $(CFLAGS) -o philo_three -pthread $(OBJI)
 
 ############	 FOR MAC	############
 #$(NAME): 	$(OBJ1) $(OBJ2) $(OBJ3)
 #			@cd philo_one && $(CC) $(CFLAGS) -o philo_one -lpthread $(OBJ)
 #			@cd philo_two && $(CC) $(CFLAGS) -o philo_two -lpthread $(OBJ)
-#			@cd philo_three && $(CC) $(CFLAGS) -o philo_three -lpthread  $(OBJ)
+#			@cd philo_three && $(CC) $(CFLAGS) -o philo_three -lpthread  $(OBJI)
 
 			@echo "\033[32m > \033[1m$(NAME)\033[0;32m created !\033[0m"
 

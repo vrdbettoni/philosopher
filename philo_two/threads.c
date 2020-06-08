@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:54 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/08 17:51:17 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/08 19:24:38 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void		*philosopher(void *content)
 	philo = content;
 	sem_wait(philo->a->who_is_eating);
 	philo->id == 1 ? philo->a->time = show_time() : 0;
-	philo->count_eat = 0;
 	philo->a->time_eat[philo->id - 1] = show_time();
 	sem_post(philo->a->who_is_eating);
 	while (philo->stop == 0)
@@ -46,7 +45,9 @@ void		*philosopher(void *content)
 		unlock_forks(philo);
 		if (philo->a->must_eat != -1 && philo->count_eat >= philo->a->must_eat)
 		{
+			sem_wait(philo->a->who_is_eating);
 			philo->a->is_eating[philo->id - 1] = 1;
+			sem_post(philo->a->who_is_eating);
 			return (NULL);
 		}
 		go_sleep(philo);

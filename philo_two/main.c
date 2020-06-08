@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:36 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/08 17:49:55 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/08 19:24:04 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		init_thread(t_all a)
 		p[i].a = &a;
 		p[i].id = i + 1;
 		p[i].stop = 0;
+		p[i].count_eat = 0;
 		pthread_create(&(p[i].th), NULL, philosopher, &(p[i]));
 		usleep(50);
 	}
