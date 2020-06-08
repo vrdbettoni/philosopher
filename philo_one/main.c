@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 17:46:05 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/08 19:03:00 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/09 01:14:19 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ int		main(int ac, char **av)
 	a.time_to_sleep = ft_atoi(av[4]);
 	a.must_eat = ac == 6 ? ft_atoi(av[5]) : -1;
 	a.someone_died = 0;
-	init_fork_table(&a);
-	init_thread(a);
+	if (init_fork_table(&a) || init_thread(a))
+		return (0);
 }

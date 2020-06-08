@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:00 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/08 20:33:10 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/09 01:11:25 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 int		init_fork_table(t_all *a)
 {
-	sem_unlink("sfork");
-	a->eat = sem_open("sfork", O_CREAT | O_EXCL, 0644, a->nb_philo);
-	sem_unlink("swrite");
-	a->write = sem_open("swrite", O_CREAT | O_EXCL, 0644, 1);
+	if (sem_unlink("sfork") == -1 || sem_unlink("swrite") == -1)
+		return (1);
+	if ((a->eat =
+		sem_open("sfork", O_CREAT | O_EXCL, 0644, a->nb_philo)) == SEM_FAILED)
+		return (1);
+	if ((a->write =
+		sem_open("swrite", O_CREAT | O_EXCL, 0644, 1)) == SEM_FAILED)
+		return (1);
 	return (0);
 }
 
@@ -66,6 +70,7 @@ int		main(int ac, char **av)
 	a.time_to_eat = ft_atoi(av[3]);
 	a.time_to_sleep = ft_atoi(av[4]);
 	a.must_eat = ac == 6 ? ft_atoi(av[5]) : -1;
-	init_fork_table(&a);
-	init_thread(a);
+	if (init_fork_table(&a) == 1 || init_thread(a) == 1)
+		return (0);
+	return (1);
 }

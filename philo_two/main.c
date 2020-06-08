@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:36 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/08 19:24:04 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/09 01:18:59 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,16 @@ int		init_fork_table(t_all *a)
 	i = -1;
 	while (++i < a->nb_philo)
 		a->is_eating[i] = 0;
-	sem_unlink("sdie");
+	if (sem_unlink("sdie") == -1 || sem_unlink("is_eating") == -1
+		|| sem_unlink("sfork") == -1 || sem_unlink("swrite") == -1)
+		return (1);
 	a->sdie = sem_open("sdie", O_CREAT | O_EXCL, 0644, 1);
-	sem_unlink("is_eating");
 	a->who_is_eating = sem_open("is_eating", O_CREAT | O_EXCL, 0644, 1);
-	sem_unlink("sfork");
 	a->eat = sem_open("sfork", O_CREAT | O_EXCL, 0644, a->nb_philo);
-	sem_unlink("swrite");
 	a->write = sem_open("swrite", O_CREAT | O_EXCL, 0644, 1);
+	if ( a->sdie == SEM_FAILED || a->who_is_eating == SEM_FAILED
+		|| a->eat == SEM_FAILED || a->write == SEM_FAILED)
+		return (1);
 	return (0);
 }
 
@@ -39,6 +41,7 @@ int		init_thread(t_all a)
 	t_philo			*p;
 	int				i;
 
+return (1);
 	if (!(p = (t_philo*)malloc(sizeof(t_philo) * (a.nb_philo + 1))))
 		return (1);
 	i = -1;
@@ -73,6 +76,7 @@ int		main(int ac, char **av)
 	a.time_to_sleep = ft_atoi(av[4]);
 	a.must_eat = ac == 6 ? ft_atoi(av[5]) : -1;
 	a.someone_died = 0;
-	init_fork_table(&a);
-	init_thread(a);
+	if (init_fork_table(&a) == 1 || init_thread(a) == 1)
+		return (1);
+	return (0);
 }
