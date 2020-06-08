@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:54 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/06 14:53:41 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/08 17:21:45 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ void		*philosopher(void *content)
 	t_philo		*philo;
 
 	philo = content;
-	philo->a->is_eating[philo->id - 1] = 1;
+	sem_wait(philo->a->who_is_eating);
+	//philo->a->is_eating[philo->id - 1] = 1;
 	philo->id == 1 ? philo->a->time = show_time() : 0;
 	philo->count_eat = 0;
 	philo->a->time_eat[philo->id - 1] = show_time();
-	philo->a->is_eating[philo->id - 1] = 0;
-	while (philo->a->someone_died == 0)
+	//philo->a->is_eating[philo->id - 1] = 0;
+	sem_post(philo->a->who_is_eating);
+	while (philo->stop == 0)
 	{
 		take_forks(philo);
 		eat(philo);

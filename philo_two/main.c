@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:36 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/06 14:45:42 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/08 17:10:10 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int		init_fork_table(t_all *a)
 	i = -1;
 	while (++i < a->nb_philo)
 		a->is_eating[i] = 0;
+	sem_unlink("sdie");
+	a->sdie = sem_open("sdie", O_CREAT | O_EXCL, 0644, 1);
 	sem_unlink("is_eating");
 	a->who_is_eating = sem_open("is_eating", O_CREAT | O_EXCL, 0644, 1);
 	sem_unlink("sfork");
@@ -44,6 +46,7 @@ int		init_thread(t_all a)
 	{
 		p[i].a = &a;
 		p[i].id = i + 1;
+		p[i].id = 0;
 		pthread_create(&(p[i].th), NULL, philosopher, &(p[i]));
 		usleep(50);
 	}
