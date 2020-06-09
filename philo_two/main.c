@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:36 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/09 01:23:37 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/09 02:24:46 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,17 @@ int		init_fork_table(t_all *a)
 	i = -1;
 	while (++i < a->nb_philo)
 		a->is_eating[i] = 0;
-	if (sem_unlink("sdie") == -1 || sem_unlink("is_eating") == -1
-		|| sem_unlink("sfork") == -1 || sem_unlink("swrite") == -1)
-		return (1);
+	sem_unlink("sdie");
+	sem_unlink("is_eating");
+	sem_unlink("sfork");
+	sem_unlink("swrite");
 	a->sdie = sem_open("sdie", O_CREAT | O_EXCL, 0644, 1);
 	a->who_is_eating = sem_open("is_eating", O_CREAT | O_EXCL, 0644, 1);
 	a->eat = sem_open("sfork", O_CREAT | O_EXCL, 0644, a->nb_philo);
 	a->write = sem_open("swrite", O_CREAT | O_EXCL, 0644, 1);
-	if (a->sdie == SEM_FAILED || a->who_is_eating == SEM_FAILED
-		|| a->eat == SEM_FAILED || a->write == SEM_FAILED)
-		return (1);
+	// if (a->sdie == SEM_FAILED || a->who_is_eating == SEM_FAILED
+	// 	|| a->eat == SEM_FAILED || a->write == SEM_FAILED)
+	// 	return (1);
 	return (0);
 }
 
