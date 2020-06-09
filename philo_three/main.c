@@ -6,7 +6,7 @@
 /*   By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 18:54:00 by vroth-di          #+#    #+#             */
-/*   Updated: 2020/06/09 02:30:32 by vroth-di         ###   ########.fr       */
+/*   Updated: 2020/06/09 03:21:05 by vroth-di         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int		init_fork_table(t_all *a)
 {
-	// if (sem_unlink("sfork") == -1 || sem_unlink("swrite") == -1)
-	// 	return (1);
 	sem_unlink("sfork");
 	sem_unlink("swrite");
 	if ((a->eat =
