@@ -6,7 +6,7 @@
 #    By: vroth-di <vroth-di@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/05 17:14:33 by vroth-di          #+#    #+#              #
-#    Updated: 2020/06/09 02:26:51 by vroth-di         ###   ########.fr        #
+#    Updated: 2020/06/10 10:18:42 by vroth-di         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CC			=	gcc
 INCL1		=	philo_one/philo_one.h
 INCL1		=	philo_two/philo_two.h
 INCL1		=	philo_three/philo_three.h
-CFLAGS		=	-Wall -Wextra -Werror #-g3 -fsanitize=thread
+CFLAGS		=	-Wall -Wextra -Werror
 
 OBJS_PATH1	=	philo_one
 OBJS_PATH2	=	philo_two
