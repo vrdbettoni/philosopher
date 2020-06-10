@@ -38,17 +38,10 @@ SRCS3		=	main.c				actions.c\
 
 all:		$(NAME)
 
-############	FOR LINUX	############
 $(NAME): 	$(OBJ1) $(OBJ2) $(OBJ3)
 			@cd philo_one && $(CC) $(CFLAGS) -o philo_one -pthread $(OBJ)
 			@cd philo_two && $(CC) $(CFLAGS) -o philo_two -pthread $(OBJ)
 			@cd philo_three && $(CC) $(CFLAGS) -o philo_three -pthread $(OBJI)
-
-############	 FOR MAC	############
-#$(NAME): 	$(OBJ1) $(OBJ2) $(OBJ3)
-#			@cd philo_one && $(CC) $(CFLAGS) -o philo_one -lpthread $(OBJ)
-#			@cd philo_two && $(CC) $(CFLAGS) -o philo_two -lpthread $(OBJ)
-#			@cd philo_three && $(CC) $(CFLAGS) -o philo_three -lpthread  $(OBJI)
 
 			@echo "\033[32m > \033[1m$(NAME)\033[0;32m created !\033[0m"
 

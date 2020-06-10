@@ -24,8 +24,8 @@ int			go_sleep(t_philo *philo, int time)
 			kill(0, SIGINT);
 			return (0);
 		}
-		usleep(2000);
-		time -= 2;
+		usleep(5000);
+		time -= 5;
 	}
 	return (1);
 }
